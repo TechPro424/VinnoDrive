@@ -165,7 +165,7 @@ nav>.dropdown {
     min-height: 10em;
     margin-top: 1em;
   background-color: #1e1f20;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   z-index: 1;
 }
 
@@ -208,7 +208,7 @@ nav>.dropdown {
     min-height: 8em;
     margin-top: 1em;
   background-color: #1e1f20;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   z-index: 1;
 }
 
