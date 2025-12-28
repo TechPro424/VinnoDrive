@@ -3,7 +3,7 @@
 import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useState} from "react";
-import {getUser, moveToBin, reVal} from "@/util/actions";
+import {moveToBin} from "@/util/actions";
 
 
 export default function FileOptionsButton(props) {
