@@ -3,18 +3,14 @@
 import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useState} from "react";
-import {reVal} from "@/util/actions";
+import {getUser, moveToBin, reVal} from "@/util/actions";
 
 
 export default function FileOptionsButton(props) {
     const [dropdown, setDropdown] = useState(false);
 
     const handleDelete = async () => {
-        const res = await fetch(`http://localhost:3000/api/0/`, {
-            method: "DELETE",
-            body: JSON.stringify({file_id: props.file_id}),
-        })
-        if (res.ok) await reVal('/')
+        await moveToBin(props.file_id)
         setDropdown(false)
     }
 

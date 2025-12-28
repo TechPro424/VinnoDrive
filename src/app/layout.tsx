@@ -6,31 +6,41 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import type React from "react";
 import Navbar from "@/components/Navbar";
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import Topbar from "@/components/Topbar";
+import Providers from "@/components/Providers";
+
 config.autoAddCss = false
 
 const googleSans = Google_Sans({
-  variable: "--font-google-sans",
-  subsets: ["latin"],
+    variable: "--font-google-sans",
+    subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "VinnoDrive",
-  description: "A streamlined, next-generation file storage platform.",
+    title: "VinnoDrive",
+    description: "A streamlined, next-generation file storage platform.",
 };
 
 
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className={`${googleSans.className}`}>
-        <Navbar/>
-        {children}
-      </body>
-    </html>
-  );
+export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+    return (
+        <html lang="en">
+            <body className={`${googleSans.className}`}>
+                <Providers>
+                    <div style={{ display: 'flex', height: '100vh' }}>
+
+                        <Navbar/>
+
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, width: '100%' }}>
+                            <Topbar/>
+                            <div style={{ flex: 1, overflow: 'auto', width: '100%' }}>
+                                {children}
+                            </div>
+                        </div>
+                    </div>
+                </Providers>
+            </body>
+        </html>
+    );
 }

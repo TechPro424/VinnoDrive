@@ -1,7 +1,7 @@
 'use client';
 
 import {useRef, useState} from "react";
-import {reVal} from "@/util/actions";
+import {upload} from "@/util/actions";
 
 
 export default function NavButton() {
@@ -19,16 +19,10 @@ export default function NavButton() {
             formdata.append('files', file);
         }
 
-        try {
-            const res = await fetch(`http://localhost:3000/api/0/`, {
-                method: "POST",
-                body: formdata
-            })
-            if (res.ok) await reVal('/')
-        }
-        catch (error) {
-            throw error;
-        }
+
+        await upload(formdata);
+
+
         setDropdown(false);
     }
 

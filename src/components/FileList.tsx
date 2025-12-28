@@ -3,7 +3,7 @@
 import type {DragEvent} from "react";
 import styles from "@/app/page.module.css";
 import FileComponent from "@/components/FileComponent";
-import {reVal} from "@/util/actions";
+import {upload} from "@/util/actions";
 
 
 async function handleDrop(event: DragEvent<HTMLElement>) {
@@ -13,17 +13,8 @@ async function handleDrop(event: DragEvent<HTMLElement>) {
 
     for (const file of files) formdata.append('files', file);
 
+    await upload(formdata);
 
-    try {
-        const res = await fetch(`http://localhost:3000/api/0/`, {
-            method: "POST",
-            body: formdata
-        })
-        if (res.ok) await reVal('/')
-
-    } catch (error) {
-        throw error;
-    }
 }
 
 
