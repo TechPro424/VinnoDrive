@@ -22,6 +22,9 @@ export default function NavButton() {
 
         await upload(formdata);
 
+        if (event.target) {
+            event.target.value = '';
+        }
 
         setDropdown(false);
     }

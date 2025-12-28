@@ -3,8 +3,8 @@ import FileList from "@/components/FileList";
 import {fetchData} from "@/util/actions";
 
 
-export default async function Home() {
-    const data = await fetchData();
+export default async function Bin() {
+    const data = await fetchData(true);
 
   const files = data.files.map(file => {
     const unit = file.size >= 1000000 ? "MB" : "KB";
@@ -17,7 +17,7 @@ export default async function Home() {
 
 
   return (
-      <FileList files={files} bin={false}/>
+      <FileList files={files} bin={true}/>
 
   );
 }

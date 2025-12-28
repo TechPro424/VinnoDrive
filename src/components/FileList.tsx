@@ -5,6 +5,19 @@ import styles from "@/app/page.module.css";
 import FileComponent from "@/components/FileComponent";
 import {upload} from "@/util/actions";
 
+export type File = {
+          name: string,
+          deduped: boolean,
+          uploader: string,
+          date: string,
+          size: number,
+          ref: string,
+          id: string,
+    dispSize: number,
+    unit: string
+
+}
+
 
 async function handleDrop(event: DragEvent<HTMLElement>) {
 
@@ -19,13 +32,13 @@ async function handleDrop(event: DragEvent<HTMLElement>) {
 
 
 export default function FileList(props) {
-    const files = props.files
+    const files: File[] = props.files
     return (
         <main className={styles.main}
               onDrop={(e) => {e.preventDefault(); handleDrop(e)}}
         onDragOver={(e) => e.preventDefault()}>
           {files.map((file) => (
-              <FileComponent file={file} key={file.id}/>
+              <FileComponent file={file} key={file.id} bin={props.bin}/>
           ))}
       </main>
     );

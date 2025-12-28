@@ -1,20 +1,11 @@
+import BinFileOptionsButton from "@/components/BinFileOptionsButton";
+import type {File} from '@/components/FileList'
 import FileOptionsButton from "@/components/FileOptionsButton";
 
-export type File = {
-          name: string,
-          deduped: boolean,
-          uploader: string,
-          date: string,
-          size: number,
-          ref: string,
-          id: string,
-    dispSize: number,
-    unit: string
-
-}
 
 export type FileProps = {
-    file: File
+    file: File,
+    bin: boolean
 }
 
 
@@ -27,7 +18,7 @@ export default function FileComponent(props: FileProps) {
             <p className={"date"}>{new Date(file.date).toLocaleDateString()}</p>
             <p className={"deduped"}>{file.deduped ? "True" : "False"}</p>
             <p className={"size"}>{file.dispSize} {file.unit}</p>
-            <FileOptionsButton file_id={file.id}/>
+            {props.bin ? <BinFileOptionsButton file_id={file.id} file_name={file.name}/> : <FileOptionsButton file_id={file.id} file_name={file.name} />}
 
         </div>
     );
