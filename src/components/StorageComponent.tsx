@@ -16,7 +16,7 @@ export default async function StorageComponent() {
     return (
         <>
             <div id="progressbar">
-                <div style={{ width: `${(udata.actualSize/1000000)*100}%`}}></div>
+                <div style={{ width: `${(udata.actualSize/limit)*100}%`}}></div>
             </div>
             <p className={"storage"}>{dispUsed} of {dispLimit} used</p>
             <p className={"storage"}>Original size: {dispInitial}</p>
