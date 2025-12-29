@@ -87,7 +87,8 @@
 }
 
 .cancelButton,
-.deleteButton {
+.deleteButton,
+.okButton{
   padding: 10px 24px;
   border-radius: 8px;
   font-size: 14px;
@@ -113,4 +114,13 @@
 
 .deleteButton:hover {
   background-color: #c82333;
+}
+
+.okButton {
+  background-color: #4a8af4;
+  color: white;
+}
+
+.okButton:hover {
+  background-color: #3a7ae4;
 }

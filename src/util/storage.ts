@@ -64,11 +64,11 @@ export async function uploadFiles(id: string, files: File[]) {
     let udata = JSON.parse(await fs.readFile(`${metadir}/user.json`, 'utf8'));
     let hashMap = new Map<string, string>(JSON.parse(await fs.readFile(`${metadir}/hashes.json`, 'utf8')));
 
-     console.log('Before upload - hashMap size:', hashMap.size);
-     console.log('Before upload - files count:', Object.keys(mdata).length);
+
+    let storageExceeded = false;
 
 
-    for (const file of files) {
+    for (const file of files.sort((f1, f2) => {return f1.size - f2.size})) {
         const fileId = nanoid();
         const name = file.name;
         const ext = path.extname(name);
@@ -79,15 +79,22 @@ export async function uploadFiles(id: string, files: File[]) {
         const deduped = !!refId;
         const date = new Date();
 
-        console.log(`File: ${name}, Hash: ${hash.substring(0, 10)}..., Deduped: ${deduped}`);
 
-        udata.initialSize += buffer.length;
+
+
 
         if (!deduped) {
+            if (udata.actualSize + buffer.length > parseInt(process.env.MAX_STORAGE_IN_BYTES!)) {
+                storageExceeded = true;
+                break;
+            }
+
             await fs.writeFile(`${storagedir}/${fileId}${ext}`, buffer);
             hashMap.set(hash, fileId);
             udata.actualSize += buffer.length;
         }
+
+        udata.initialSize += buffer.length;
 
         mdata[fileId] = {
             name,
@@ -110,13 +117,13 @@ export async function uploadFiles(id: string, files: File[]) {
         });
     }
 
-    console.log('After upload - files count:', Object.keys(mdata).length);
+
 
     await fs.writeFile(`${metadir}/files.json`, JSON.stringify(mdata), {encoding: 'utf8', flush: true});
     await fs.writeFile(`${metadir}/user.json`, JSON.stringify(udata), {encoding: 'utf8', flush: true});
     await fs.writeFile(`${metadir}/hashes.json`, JSON.stringify([...hashMap]), {encoding: 'utf8', flush: true});
 
-    return { files: resFiles, udata };
+    return { files: resFiles, udata, status: (storageExceeded ? 507 : 200) };
 }
 
 export async function moveFilesToBin(id: string, file_id: string, reverse: boolean = false) {

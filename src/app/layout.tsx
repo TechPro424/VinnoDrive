@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { Google_Sans } from "next/font/google";
-
 import "./globals.css";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import type React from "react";
 import Navbar from "@/components/Navbar";
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import Topbar from "@/components/Topbar";
 import Providers from "@/components/Providers";
+import Topbar from "@/components/Topbar";
 
 config.autoAddCss = false
 
@@ -23,7 +22,10 @@ export const metadata: Metadata = {
 
 
 
+
+
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+
     return (
         <html lang="en">
             <body className={`${googleSans.className}`}>

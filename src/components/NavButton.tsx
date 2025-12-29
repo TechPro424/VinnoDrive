@@ -1,11 +1,15 @@
 'use client';
 
 import {useRef, useState} from "react";
+import StorageExceededModal from "@/components/StorageExceededModal";
 import {upload} from "@/util/actions";
 
 
 export default function NavButton() {
+    const [res, setRes] = useState(null);
+
     const [dropdown, setDropdown] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const folderInputRef = useRef<HTMLInputElement>(null);
@@ -20,16 +24,20 @@ export default function NavButton() {
         }
 
 
-        await upload(formdata);
+        const response = await upload(formdata);
 
-        if (event.target) {
-            event.target.value = '';
-        }
-
+        if (event.target) event.target.value = '';
         setDropdown(false);
+
+
+        if (response.status === 507) {
+            setRes(response);
+            setIsModalOpen(true);
+        }
     }
 
     return (
+        <>
        <div className="dropdown">
                 <input name="File upload" type="file" ref={fileInputRef} onChange={handleFileChange} multiple={true}/>
            <input name="Folder upload" type="file" ref={folderInputRef} onChange={handleFileChange} multiple={true} {...({ webkitdirectory: '', directory: '' } as any)}/>
@@ -40,5 +48,7 @@ export default function NavButton() {
                     <div className={"element"}  onClick={() => folderInputRef.current?.click()}>Folder upload</div>
                 </div>
             </div>
+            <StorageExceededModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} respomse={res!}/>
+        </>
     );
 }

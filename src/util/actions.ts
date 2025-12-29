@@ -27,8 +27,9 @@ export async function upload(formdata: FormData) {
         throw new Error('No files provided');
     }
 
-    await uploadFiles(id, files);
+    const res = await uploadFiles(id, files);
     await reVal('/');
+    return res;
 }
 
 export async function moveToBin(file_id: string, reverse: boolean = false) {
