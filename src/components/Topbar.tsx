@@ -13,7 +13,7 @@ export default async function Topbar() {
 
     return (
         <div className={"top"}>
-            <Image src={userImage ? userImage : '/logo.png'} width={32} height={32} alt={""}/>
+            <Image src={userImage ? userImage : '/vinlogo.svg'} width={32} height={32} alt={""}/>
         </div>
     );
 }

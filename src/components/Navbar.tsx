@@ -11,7 +11,7 @@ export default async function Navbar() {
         <nav>
             <Link href="/">
             <div>
-                <Image src={'/logo.png'} alt={""} width={32} height={32} />
+                <Image src={'/vinlogo.svg'} alt={""} width={32} height={32} />
                 <h2 id={"title"}>VinnoDrive</h2>
             </div>
             </Link>
